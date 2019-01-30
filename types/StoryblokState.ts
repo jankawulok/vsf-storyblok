@@ -1,3 +1,4 @@
 export interface StoryblokState {
-  story: any
+  story: any,
+  loading: boolean
 }
