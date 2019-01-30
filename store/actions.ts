@@ -12,8 +12,9 @@ export const actions: ActionTree<StoryblokState, any> = {
     return Vue.prototype.$storyapi.get('cdn/stories' + value, {
       version: config.storyblok.version
     }).then((response) => {
-      context.commit(types.STORYBLOK_UPD_CURRENT, response)
+      context.commit(types.STORYBLOK_UPD_CURRENT, response.data.story)
     }).catch((err) => {
+      context.commit(types.STORYBLOK_UPD_CURRENT, {})
       console.error(err)
     })
   },
