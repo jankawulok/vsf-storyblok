@@ -5,5 +5,9 @@
   "main": "index.ts",
   "repository": "https://github.com/jankawulok/vsf-storyblok",
   "author": "Jan Kawulok",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "storyblok-js-client": "^1.0.21",
+    "storyblok-vue": "^1.0.5"
+  }
 }
