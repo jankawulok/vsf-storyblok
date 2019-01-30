@@ -1,7 +1,7 @@
 import { mapGetters } from 'vuex'
 import * as types from '../store/mutation-types'
 
-export const Storyblok = {
+export default {
   name: 'Storyblok',
   computed: {
     ...mapGetters({
