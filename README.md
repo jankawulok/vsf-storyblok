@@ -44,3 +44,8 @@ export default {
 
 Story is fetch based on url path and available via `story` prop.
 
+## TODO
+
+- [x] SSR support
+- [x] Ingetration with Visual Composer
+- [ ] Offline supprt
