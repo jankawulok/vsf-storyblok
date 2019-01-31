@@ -70,7 +70,7 @@ export function beforeRegistration(Vue, config, store, isServer) {
   
 
   // load js bridge on draft mode
-  if (!isServer && config.storyblok.editMode) {
+  if (!isServer && config.storyblok.draft === 'draft') {
     Vue.prototype.$storybridge = {
       doLoadScript: true,
       proxy: null,
@@ -89,19 +89,16 @@ export function beforeRegistration(Vue, config, store, isServer) {
         })
       },
       load: function(cb, errorCb) {
-        console.log('storbblok load bridge')
         if (typeof errorCb !== 'function') {
           errorCb = function() {}
         }
 
         if (window.location == window.parent.location) {
-          errorCb('You are not in the edit mode.')
           return
         }
 
         if (!this.doLoadScript) {
           if (!window.storyblok) {
-            errorCb('The Storyblok bridge script is already loading.')
             return
           }
           cb()

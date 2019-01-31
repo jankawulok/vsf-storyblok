@@ -8,7 +8,7 @@
 git clone git@github.com:jankawulok/vsf-storyblok.git ./vue-storefront/src/modules/storyblok
 ```
 
-Add to your `config/local.json` and configure the `stripe.apiKey` to point to your Stripe details.
+Add to your `config/local.json` and configure the `accessToken` and `version`.
 
 ```json
 "storyblok": {
@@ -33,7 +33,7 @@ export const registerModules: VueStorefrontModule[] = [
 
 ## Integration with your page
 
-Add mixin
+Add mixin to page you want to use with storyblok
 
 ```js
 import StoryblokMixin from 'src/modules/storyblok/components/StoryblokMixin'
@@ -42,4 +42,5 @@ export default {
   mixins: [..., StoryblokMixin],
 ```
 
-Then story is fetch based on url path and available via `story` prop.
+Story is fetch based on url path and available via `story` prop.
+
