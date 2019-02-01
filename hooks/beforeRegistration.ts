@@ -70,7 +70,7 @@ export function beforeRegistration(Vue, config, store, isServer) {
   
 
   // load js bridge on draft mode
-  if (!isServer && config.storyblok.draft === 'draft') {
+  if (!isServer && config.storyblok.version === 'draft') {
     Vue.prototype.$storybridge = {
       doLoadScript: true,
       proxy: null,
