@@ -5,36 +5,33 @@ export default {
   name: 'Storyblok',
   computed: {
     ...mapGetters({
-      story: 'storyblok/storyCurrent'
+      story: 'storyblok/story'
     })
   },
   mounted () {
+    if(!this.story)
+    {
+      this.fetchStory()
+    }
     this.$storybridge.on(['input', 'published', 'change'], (event) => {
       if (event.action == 'input') {
         if (event.story.id === this.story.id) {
-          // this.story.content = event.story.content
-          console.log(event)
-          this.$store.commit('storyblok/STORYBLOK_UPD_CURRENT', event.story)
+          this.story = event.story
         }
       } else if (!event.slugChanged) {
         window.location.reload()
       }
     })
   },
-  asyncData ({ store, route, context }) {
-    return new Promise((resolve, reject) => {
-      store.dispatch('storyblok/fetchAsync', {
-        value: route.fullPath,
-        setCurrent: true
-      }).then(data => {
-        if (context) context.output.cacheTags.add(`storyblok`)
-        resolve(data)
-      }).catch(err => {
-        console.error(err)
-        reject(err)
-      })
-    })
+  serverPrefetch () {
+    return this.fetchStory()
   },
   methods: {
+    fetchStory () {
+      return this.$store.dispatch('storyblok/fetchStory', {
+        // value: this.$route.fullPath
+        route: '/home'
+      })
+    }
   }
 }

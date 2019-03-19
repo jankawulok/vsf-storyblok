@@ -25,7 +25,7 @@ const loadScript = function(src, cb) {
   document.getElementsByTagName('head')[0].appendChild(script)
 }
 
-export function beforeRegistration(Vue, config, store, isServer) {
+export function beforeRegistration({Vue, config, store, isServer}) {
 
   Logger.info('Adding Storyblok module', 'storyblok', this)()
 

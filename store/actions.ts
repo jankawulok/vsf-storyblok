@@ -6,16 +6,21 @@ import config from 'config'
 import { Logger } from '@vue-storefront/core/lib/logger';
 
 export const actions: ActionTree<StoryblokState, any> = {
-  fetchAsync(context, { value, setcurrent = true }) {
-    console.log('Storyblok is being fetched ...')
-    Logger.info('Fetching story data asynchronously' , 'storyblok', value)()
-    return Vue.prototype.$storyapi.get('cdn/stories' + value, {
-      version: config.storyblok.version
-    }).then((response) => {
-      context.commit(types.STORYBLOK_UPD_CURRENT, response.data.story)
-    }).catch((err) => {
-      context.commit(types.STORYBLOK_UPD_CURRENT, {})
-      console.error(err)
+  fetchStory (context, { route }) {
+    return new Promise ((resolve, reject) => {
+      Logger.info('Fetching story data asynchronously' , 'storyblok', route)()
+
+      Vue.prototype.$storyapi.get('cdn/stories' + route, {
+        version: config.storyblok.version
+      }).then((response) => {
+        context.commit(types.STORYBLOK_UPD_CURRENT, {route: route, story: response.data.story})
+        resolve(response.data.story)
+      }).catch(err => {
+        context.commit(types.STORYBLOK_UPD_CURRENT, {route: route, story: {}})
+        console.error(err)
+        reject()
+      })
+      
     })
   },
   /**
